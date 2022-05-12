@@ -1,11 +1,12 @@
-import TunesGrid from "./components/tunesGrid";
+import React from "react";
+import TabComponent from "./components/tabComponent";
 
 
 function App() {
 
   return (
     <div>
-        <TunesGrid/>
+        <TabComponent/>
     </div>
   );
 }
