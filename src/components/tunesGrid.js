@@ -32,7 +32,7 @@ const TunesGrid = () => {
                     date={tune["im:releaseDate"].attributes.label}
                     image={tune["im:image"][2].label}
                     video={null}
-                    open={null}/>
+                    link={tune.link[0].attributes.href}/>
                 )
             })}
         </Grid>

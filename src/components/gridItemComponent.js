@@ -1,11 +1,13 @@
 import React from 'react';
-import {Box, Image} from "@chakra-ui/react";
+import {Box, Image, Link} from "@chakra-ui/react";
+import { AspectRatio } from '@chakra-ui/react';
 
-const GridItemComponent = ({title, name, artist, date, image, video, open}) => {
+const GridItemComponent = ({title, name, artist, date, image, video, link}) => {
     return (
         <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
-            <Image src={image} alt={title} />
-
+            <AspectRatio maxW='400px' ratio={4 / 3}>
+                <Image src={image} alt={title}/>
+            </AspectRatio>
             <Box p='6'>
                 <Box display='flex' alignItems='baseline'>
                     <Box
@@ -14,7 +16,6 @@ const GridItemComponent = ({title, name, artist, date, image, video, open}) => {
                         letterSpacing='wide'
                         fontSize='xs'
                         textTransform='uppercase'
-                        ml='2'
                     >
                         {date}
                     </Box>
@@ -30,17 +31,21 @@ const GridItemComponent = ({title, name, artist, date, image, video, open}) => {
                     {name}
                 </Box>
 
-                <Box>
+                <Box isTruncated>
                     {artist}
-                    <Box as='span' color='gray.600' fontSize='sm'>
-                        / wk
-                    </Box>
                 </Box>
 
                 <Box display='flex' mt='2' alignItems='center'>
-                    <Box as='span' ml='2' color='gray.600' fontSize='sm'>
-                        {open} open
-                    </Box>
+                    <Link href={link}
+                          style={{
+                              color: '#0070c9',
+                              border: '1px solid #0070c9',
+                              borderRadius: '4px',
+                              padding: '7px 10px 7px',
+                          }}
+                          isExternal>
+                        Open
+                    </Link>
                 </Box>
             </Box>
         </Box>
