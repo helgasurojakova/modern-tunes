@@ -1,13 +1,31 @@
 import React from 'react';
-import {Box, Image, Link} from "@chakra-ui/react";
+import {
+    Box, Button,
+    Image,
+    useDisclosure
+} from "@chakra-ui/react";
 import { AspectRatio } from '@chakra-ui/react';
+import VideoPanel from "./videoPanel";
 
-const GridItemComponent = ({title, name, artist, date, image, video, link}) => {
+const TuneGridItem = ({title, name, artist, date, image, video, link}) => {
+
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+    function openInInternet (link){
+        window.open(link, '_blank');
+    }
+
     return (
         <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
             <AspectRatio maxW='400px' ratio={4 / 3}>
-                <Image src={image} alt={title}/>
+                <Image
+                    src={image}
+                    alt={title}
+                    onClick={onOpen}
+                    _hover={{opacity: 0.5}}
+                />
             </AspectRatio>
+            <VideoPanel title={title} video={video} link={link} isOpen={isOpen} onClose={onClose}/>
             <Box p='6'>
                 <Box display='flex' alignItems='baseline'>
                     <Box
@@ -36,20 +54,11 @@ const GridItemComponent = ({title, name, artist, date, image, video, link}) => {
                 </Box>
 
                 <Box display='flex' mt='2' alignItems='center'>
-                    <Link href={link}
-                          style={{
-                              color: '#0070c9',
-                              border: '1px solid #0070c9',
-                              borderRadius: '4px',
-                              padding: '7px 10px 7px',
-                          }}
-                          isExternal>
-                        Open
-                    </Link>
+                    <Button variant='outline' color='#0070c9' onClick={() => {openInInternet(link)}} isexternal="true">Open</Button>
                 </Box>
             </Box>
         </Box>
     );
 };
 
-export default GridItemComponent;
+export default TuneGridItem;

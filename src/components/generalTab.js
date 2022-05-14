@@ -3,7 +3,7 @@ import {Tab, TabList, TabPanel, TabPanels, Tabs} from "@chakra-ui/react";
 import TunesGrid from "./tunesGrid";
 import TunesTable from "./tunesTable";
 
-const TabComponent = () => {
+const GeneralTab = () => {
         return (
             <Tabs isLazy>
                 <TabList>
@@ -22,4 +22,4 @@ const TabComponent = () => {
         )
 };
 
-export default TabComponent;
+export default GeneralTab;

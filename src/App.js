@@ -1,12 +1,12 @@
 import React from "react";
-import TabComponent from "./components/tabComponent";
+import GeneralTab from "./components/generalTab";
 
 
 function App() {
 
   return (
     <div>
-        <TabComponent/>
+        <GeneralTab/>
     </div>
   );
 }

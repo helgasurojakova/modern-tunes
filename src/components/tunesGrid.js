@@ -4,7 +4,7 @@ import {
 } from "@chakra-ui/react";
 import {useFetching} from "../hooks/useFetching";
 import {tunesApi} from "../api/tunesApi";
-import GridItemComponent from "./gridItemComponent";
+import TuneGridItem from "./tuneGridItem";
 
 const TunesGrid = () => {
 
@@ -12,7 +12,6 @@ const TunesGrid = () => {
 
     const [fetchData, isDataLoading, dataError] = useFetching(async () => {
         const response = await tunesApi.getAll();
-        console.log(response, 'res')
         setTunes([...response.data.feed.entry])
     });
 
@@ -24,14 +23,14 @@ const TunesGrid = () => {
         <Grid templateColumns='repeat(5, 1fr)' gap={6}>
             {tunes.map((tune) => {
                 return (
-                <GridItemComponent
+                <TuneGridItem
                     key={tune.id.label}
                     title={tune.title.label}
                     name={tune["im:name"].label}
                     artist={tune["im:artist"].label}
                     date={tune["im:releaseDate"].attributes.label}
                     image={tune["im:image"][2].label}
-                    video={null}
+                    video={tune.link[1].attributes.href}
                     link={tune.link[0].attributes.href}/>
                 )
             })}

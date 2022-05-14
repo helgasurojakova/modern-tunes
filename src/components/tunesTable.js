@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Link, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr} from "@chakra-ui/react";
+import {Button, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr} from "@chakra-ui/react";
 import {useFetching} from "../hooks/useFetching";
 import { Image } from '@chakra-ui/react';
 import {tunesApi} from "../api/tunesApi";
@@ -10,13 +10,16 @@ const TunesTable = () => {
 
     const [fetchData, isDataLoading, dataError] = useFetching(async () => {
         const response = await tunesApi.getAll();
-        console.log(response, 'res')
         setTunes([...response.data.feed.entry])
     });
 
     useEffect(() => {
         fetchData()
     }, []);
+
+    function openInInternet (link){
+        window.open(link, '_blank');
+    }
 
     return (
         <TableContainer>
@@ -33,7 +36,9 @@ const TunesTable = () => {
                 <Tbody>
                     {tunes.map((tune, index) => {
                         return (
-                            <Tr key={index}>
+                            <Tr key={index}
+                                _hover={{backgroundColor: 'rgba(0,112,201,0.05)',}}
+                            >
                                 <Td>{index + 1}</Td>
                                 <Td>
                                     <Text width='400px' isTruncated>
@@ -45,16 +50,13 @@ const TunesTable = () => {
                                     <Image src={tune["im:image"][0].label} alt={tune.title.label} />
                                 </Td>
                                 <Td>
-                                    <Link href={tune.link[0].attributes.href}
-                                          style={{
-                                              color: '#0070c9',
-                                              border: '1px solid #0070c9',
-                                              borderRadius: '4px',
-                                              padding: '7px 10px 7px',
-                                          }}
-                                          isExternal>
-                                        Open
-                                    </Link>
+                                    <Button
+                                        variant='outline'
+                                        color='#0070c9'
+                                        onClick={() => {openInInternet(tune.link[0].attributes.href)}}
+                                        isexternal="true"
+                                    >Open
+                                    </Button>
                                 </Td>
                             </Tr>
                         )
